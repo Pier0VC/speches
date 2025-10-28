@@ -1,0 +1,160 @@
+/* Base */
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+  background: #f7f8fa;
+  margin: 0;
+}
+.container {
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 16px;
+}
+h1 { margin: 0 0 20px; font-size: 28px; color: #111827; }
+h3 { margin: 0 0 12px; }
+
+/* Cards y formularios */
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+label { display:block; margin:14px 0 6px; font-weight:600; color:#374151; }
+select, input, textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
+}
+select:focus, input:focus, textarea:focus {
+  border-color:#6366f1;
+  box-shadow: 0 0 0 3px rgba(99,102,241,0.15);
+}
+textarea { resize: vertical; min-height: 110px; }
+
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 10px;
+}
+button:hover { background:#000; }
+
+.helper { display:block; margin-top:6px; color:#6b7280; }
+
+/* Grid de controles */
+.controls-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 16px;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .controls-grid { grid-template-columns: 1fr; }
+}
+
+/* Encabezado del formulario con switch */
+.form-card-head {
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.switch-label { color:#374151; font-weight:600; }
+
+/* Switch UI */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 52px;
+  height: 30px;
+}
+.switch input { display:none; }
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right:0; bottom:0;
+  background: #e5e7eb;
+  transition: .2s;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+}
+.slider:before {
+  position: absolute; content: "";
+  height: 22px; width: 22px;
+  left: 4px; top: 3px;
+  background: #fff;
+  transition: .2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,.15);
+}
+.switch input:checked + .slider {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(22px);
+}
+
+/* Mosaico */
+.mosaic-wrap { margin-top: 20px; }
+.mosaic-header {
+  display:flex; align-items:center; justify-content:space-between;
+  margin-bottom: 12px;
+}
+.mosaic {
+  display: grid;
+  grid-template-columns: repeat( auto-fill, minmax(260px, 1fr) );
+  gap: 16px;
+}
+
+/* Tarjeta de speech */
+.speech-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+  display:flex;
+  flex-direction: column;
+  min-height: 170px;
+  transition: transform .08s ease-in-out;
+}
+.speech-card:hover { transform: translateY(-2px); }
+.speech-head { display:flex; align-items:flex-start; gap: 8px; }
+.speech-title { flex:1; font-weight: 700; font-size: 16px; color:#111827; line-height: 1.25; }
+.speech-actions { display:flex; align-items:center; gap:6px; }
+.icon-btn {
+  width: 36px; height: 36px; display:grid; place-items:center;
+  border-radius: 10px; border: 1px solid #e5e7eb; background: #fff; cursor: pointer;
+}
+.icon-btn:hover { background:#f3f4f6; }
+.icon { width: 18px; height: 18px; display:block; fill: #111827; }
+.speech-content {
+  color:#374151; margin-top: 10px; white-space: pre-wrap; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 8; -webkit-box-orient: vertical;
+}
+.speech-footer { margin-top: auto; display:flex; justify-content: space-between; align-items:center; gap: 8px; }
+.badge { font-size: 12px; color:#374151; background:#f3f4f6; border: 1px solid #e5e7eb; padding: 4px 8px; border-radius: 999px; }
+.delete { background: #ef4444; }
+.delete:hover { background:#dc2626; }
+
+.hidden { display:none; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 20px; left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: #111827; color: #fff;
+  padding: 10px 14px; border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  opacity: 0; pointer-events: none; transition: all .25s ease;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
