@@ -1,23 +1,25 @@
-# Usa una imagen oficial de Java 21 (o 17 si tu proyecto usa esa versión)
-FROM eclipse-temurin:17-jdk
-
-# Establece el directorio de trabajo
+# === Build stage ===
+FROM eclipse-temurin:17-jdk AS builder
 WORKDIR /app
 
-# Copia el archivo pom.xml y descarga dependencias
-COPY pom.xml .
+COPY pom.xml mvnw ./
 COPY .mvn .mvn
-COPY mvnw .
-RUN ./mvnw dependency:go-offline -B
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline
 
-# Copia todo el código fuente
-COPY src ./src
+COPY src src
+RUN ./mvnw clean package -DskipTests
 
-# Compila la app
-RUN ./mvnw -DskipTests package
+# === Run stage ===
+FROM eclipse-temurin:17-jdk
+WORKDIR /app
 
-# Expone el puerto (Render lo configura automáticamente con $PORT)
+# Copiamos el jar compilado desde la etapa build
+COPY --from=builder /app/target/Speches-0.0.1-SNAPSHOT.jar app.jar
+
 EXPOSE 8080
 
-# Ejecuta la app
-CMD ["java", "-jar", "target/*.jar"]
+# Render usa $PORT automáticamente
+ENV PORT=8080
+
+CMD ["java", "-jar", "app.jar"]
